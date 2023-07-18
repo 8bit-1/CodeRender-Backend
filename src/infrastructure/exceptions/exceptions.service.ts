@@ -13,15 +13,15 @@ import {
 @Injectable()
 export class ExceptionsService implements IException {
   badRequestException(data: IFormatExceptionMessage): void {
-    throw new BadRequestException('Method not implemented.');
+    throw new BadRequestException(data);
   }
   internalServerErrorException(data?: IFormatExceptionMessage): void {
-    throw new InternalServerErrorException('Method not implemented.');
+    throw new InternalServerErrorException(data);
   }
   forbiddenException(data?: IFormatExceptionMessage): void {
-    throw new ForbiddenException('Method not implemented.');
+    throw new ForbiddenException(data);
   }
   UnauthorizedException(data?: IFormatExceptionMessage): void {
-    throw new UnauthorizedException('Method not implemented.');
+    throw new UnauthorizedException(data);
   }
 }
