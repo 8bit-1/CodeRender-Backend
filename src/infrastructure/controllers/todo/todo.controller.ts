@@ -4,7 +4,7 @@ import { ApiResponseType } from 'src/infrastructure/common/swagger/response.deco
 import { TodoPresenter } from 'src/infrastructure/presenters/todo.presenter';
 import { UseCaseProxy } from 'src/infrastructure/usecases-proxy/usecases-proxy';
 import { UsecasesProxyModule } from 'src/infrastructure/usecases-proxy/usecases-proxy.module';
-import { GetTodosUseCases } from 'src/usecases/todo/getTodos.usecases';
+import { GetTodosUseCases } from 'src/applicatons/todo/getTodos.usecase';
 
 @Controller('todo')
 @ApiTags('todo')
@@ -19,7 +19,7 @@ export class TodoController {
   @Get('sup')
   @ApiResponseType(TodoPresenter, false)
   async getTodos() {
-    const data = await this.getTodosUseCaseProxy.getInstance().execute();
+    const data = await this.getTodosUseCaseProxy.getInstance().list();
     return data.map((todo) => new TodoPresenter(todo));
   }
 }
