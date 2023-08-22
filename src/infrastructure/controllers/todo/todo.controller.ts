@@ -4,10 +4,10 @@ import { ApiResponseType } from 'src/infrastructure/common/swagger/response.deco
 import { TodoPresenter } from 'src/infrastructure/presenters/todo.presenter';
 import { UseCaseProxy } from 'src/infrastructure/usecases-proxy/usecases-proxy';
 import { UsecasesProxyModule } from 'src/infrastructure/usecases-proxy/usecases-proxy.module';
-import { GetTodosUseCases } from 'src/applicatons/todo/getTodos.usecase';
+import { GetTodosUseCases } from 'src/application/todo/getTodos.usecase';
 
 @Controller('todo')
-@ApiTags('todo')
+@ApiTags('Todo')
 @ApiResponse({ status: 500, description: 'Internal Error' })
 @ApiExtraModels(TodoPresenter)
 export class TodoController {

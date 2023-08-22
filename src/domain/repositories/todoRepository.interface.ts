@@ -6,4 +6,5 @@ export interface ITodoRepository {
   Update(id: number, done: boolean): Promise<void>;
   Delete(id: number): Promise<void>;
   Find(id: number): Promise<TodoM>;
+  // Find(id: number): Promise<DataWrapper<TodoM>>;
 }

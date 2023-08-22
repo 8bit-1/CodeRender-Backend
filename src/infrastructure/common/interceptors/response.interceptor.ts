@@ -5,8 +5,8 @@ import { Observable, map } from 'rxjs';
 export class ResponseFormat<T> {
   @ApiProperty()
   isArray: boolean;
-  @ApiProperty()
-  path: string;
+  // @ApiProperty()
+  // path: string;
   @ApiProperty()
   duration: string;
   @ApiProperty()
@@ -29,7 +29,7 @@ export class ResponseInterceptor<T> implements NestInterceptor<T, ResponseFormat
       map((data) => ({
         data,
         isArray: Array.isArray(data),
-        path: request.path,
+        // path: request.path,
         duration: `${Date.now() - now}ms`,
         method: request.method,
       })),
