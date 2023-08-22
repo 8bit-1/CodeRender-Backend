@@ -8,7 +8,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  // Filter
+  // Filter: Log de errores o warnings.
   app.useGlobalFilters(new AllExceptionFilter(new LoggerService()));
 
   // Interceptors
@@ -18,19 +18,23 @@ async function bootstrap() {
   // base routing
   app.setGlobalPrefix('api_v1');
 
+  // Cors
+  app.enableCors();
+
   // swagger config
   const config = new DocumentBuilder()
     .addBearerAuth()
-    .setTitle('Clean Architecture Nestjs')
-    .setDescription('Example with todo list')
+    .setTitle('TEAMS API')
+    .setDescription('Proyecto backend para la clase de Sistemas Expertos')
     .setVersion('1.0')
     .build();
   const document = SwaggerModule.createDocument(app, config, {
     extraModels: [ResponseFormat],
     deepScanRoutes: true,
   });
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('/', app, document);
 
   await app.listen(3001);
+  console.log(`Application is running on: ${await app.getUrl()}`);
 }
 bootstrap();
