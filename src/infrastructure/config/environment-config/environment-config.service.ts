@@ -16,6 +16,7 @@ export class EnvironmentConfigService implements DatabaseConfig {
 
   getDatabaseUser(): string {
     const user = this.configService.get<string>('DATABASE_USER');
+    console.log('user: ', user);
     return user;
   }
 

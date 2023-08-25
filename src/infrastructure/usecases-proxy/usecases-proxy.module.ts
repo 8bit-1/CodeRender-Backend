@@ -5,18 +5,15 @@ import { GetTodosUseCases } from 'src/application/todo/getTodos.usecase';
 import { RepositoriesModule } from '../repositories/repositories.module';
 import { LoggerModule } from '../logger/logger.module';
 import { ExceptionsModule } from '../exceptions/exceptions.module';
+import { UserRepository } from '../repositories/user.repository';
+import { UserUseCases } from 'src/application/users/user.usecase';
 
 @Module({
   imports: [LoggerModule, RepositoriesModule, ExceptionsModule],
 })
 export class UsecasesProxyModule {
-  static GET_TODO_USECASES_PROXY = 'getTodoUsecasesProxy';
   static GET_TODOS_USECASES_PROXY = 'getTodosUsecasesProxy';
-  static POST_TODO_USECASES_PROXY = 'postTodoUsecasesProxy';
-  static DELETE_TODO_USECASES_PROXY = 'deleteTodoUsecasesProxy';
-  static PUT_TODO_USECASES_PROXY = 'putTodoUsecasesProxy';
-
-  // static USUARIO_USECASES_PROXY = 'usuarioUsecasesProxy';
+  static USER_USECASES_PROXY = 'userUsecasesProxy';
 
   static register(): DynamicModule {
     return {
@@ -27,9 +24,13 @@ export class UsecasesProxyModule {
           provide: UsecasesProxyModule.GET_TODOS_USECASES_PROXY,
           useFactory: (todoRepository: TodoRepository) => new UseCaseProxy(new GetTodosUseCases(todoRepository)),
         },
-        
+        {
+          inject: [UserRepository],
+          provide: UsecasesProxyModule.USER_USECASES_PROXY,
+          useFactory: (userRepository: UserRepository) => new UseCaseProxy(new UserUseCases(userRepository)),
+        },
       ],
-      exports: [UsecasesProxyModule.GET_TODOS_USECASES_PROXY],
+      exports: [UsecasesProxyModule.USER_USECASES_PROXY, UsecasesProxyModule.GET_TODOS_USECASES_PROXY],
     };
   }
 }
