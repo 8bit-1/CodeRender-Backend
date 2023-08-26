@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 
 import { EnvironmentConfigModule } from './infrastructure/config/environment-config/environment-config.module';
 import { LoggerModule } from './infrastructure/logger/logger.module';
@@ -8,6 +8,8 @@ import { ControllersModule } from './infrastructure/controllers/controllers.modu
 import { UsecasesProxyModule } from './infrastructure/usecases-proxy/usecases-proxy.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { EnvironmentConfigService } from './infrastructure/config/environment-config/environment-config.service';
+import { FirebaseApp } from './infrastructure/config/firebase/firebase-app.service';
+import { PreAuthMiddleware } from './infrastructure/common/middleware/pre-auth.middleware';
 
 @Module({
   imports: [
@@ -24,5 +26,10 @@ import { EnvironmentConfigService } from './infrastructure/config/environment-co
       inject: [EnvironmentConfigService],
     }),
   ],
+  providers: [FirebaseApp],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer): any {
+    consumer.apply(PreAuthMiddleware).exclude({ path: 'users', method: RequestMethod.GET }).forRoutes('*');
+  }
+}

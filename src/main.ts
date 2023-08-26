@@ -24,7 +24,7 @@ async function bootstrap() {
   // swagger config
   const config = new DocumentBuilder()
     .addBearerAuth()
-    .setTitle('TEAMS API')
+    .setTitle('CodeRender API')
     .setDescription('Proyecto backend para la clase de Sistemas Expertos')
     .setVersion('1.0')
     .build();
