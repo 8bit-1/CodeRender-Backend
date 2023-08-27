@@ -7,7 +7,7 @@ import { LoggerModule } from '../logger/logger.module';
 import { ExceptionsModule } from '../exceptions/exceptions.module';
 import { UserRepository } from '../repositories/user.repository';
 import { UserUseCases } from 'src/application/users/user.usecase';
-import { RenderProjectRepository } from '../repositories/RenderProject.repository';
+import { RenderProjectRepository } from '../repositories/renderProject.repository';
 import { RenderProjectUseCases } from 'src/application/renderProjects/renderProject.usecase';
 
 @Module({

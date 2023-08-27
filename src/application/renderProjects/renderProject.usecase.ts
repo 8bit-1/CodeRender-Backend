@@ -1,5 +1,5 @@
 import { RenderProjectModel } from 'src/domain/model/renderProject';
-import { IRenderProjectRepository } from 'src/domain/repositories/RenderProject.interface';
+import { IRenderProjectRepository } from 'src/domain/repositories/renderProject.interface';
 
 import { AddProjectDto } from 'src/infrastructure/dto/addProject.dto';
 import { UpdateProjectDto } from 'src/infrastructure/dto/updateProject.dto';

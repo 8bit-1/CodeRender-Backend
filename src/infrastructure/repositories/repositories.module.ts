@@ -3,8 +3,8 @@ import { TodoRepository } from './todo.repository';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserSchema } from '../schemas/user.schema';
 import { UserRepository } from './user.repository';
-import { renderProjectSchema } from '../schemas/RenderProject.schema';
-import { RenderProjectRepository } from './RenderProject.repository';
+import { renderProjectSchema } from '../schemas/renderProject.schema';
+import { RenderProjectRepository } from './renderProject.repository';
 
 @Module({
   providers: [TodoRepository, UserRepository, RenderProjectRepository],

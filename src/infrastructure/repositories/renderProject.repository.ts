@@ -2,7 +2,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import mongoose, { Model } from 'mongoose';
 import { DataWrapper } from '../utils/utils';
 import { User } from '../entities/user.entity';
-import { IRenderProjectRepository } from 'src/domain/repositories/RenderProject.interface';
+import { IRenderProjectRepository } from 'src/domain/repositories/renderProject.interface';
 import { RenderProjectModel } from 'src/domain/model/renderProject';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { RenderProject } from '../entities/renderProject.entity';
