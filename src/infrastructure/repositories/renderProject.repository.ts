@@ -142,7 +142,8 @@ export class RenderProjectRepository implements IRenderProjectRepository {
     let userOwner = await this.userSchema.findById(project.Owner).exec();
 
     if (userOwner) {
-      await userOwner.updateOne({ $pull: { Projects: project.Owner } }).exec();
+      let data = await userOwner.updateOne({ $pull: { Projects: project.Owner } }).exec();
+      console.log(data);
     }
 
     await project.deleteOne();
@@ -159,5 +160,10 @@ export class RenderProjectRepository implements IRenderProjectRepository {
     let projects = await this.renderProjectSchema.find({ Owner: user._id }).exec();
 
     return projects;
+  }
+
+  async GetProjectById(idProject: any): Promise<RenderProjectModel> {
+    if (!mongoose.Types.ObjectId.isValid(idProject)) throw new BadRequestException(`Invalid idProject ${idProject}`);
+    return this.renderProjectSchema.findById(idProject).exec();
   }
 }

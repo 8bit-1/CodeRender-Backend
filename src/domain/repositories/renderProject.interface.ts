@@ -25,4 +25,6 @@ export interface IRenderProjectRepository {
   DeleteProject(idUser: string, idProject: any): Promise<RenderProjectModel>;
 
   GetUserProjects(idUser: any): Promise<RenderProjectModel[]>;
+
+  GetProjectById(idProject: any): Promise<RenderProjectModel>;
 }

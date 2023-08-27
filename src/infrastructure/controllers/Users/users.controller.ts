@@ -11,7 +11,7 @@ import { UsecasesProxyModule } from 'src/infrastructure/usecases-proxy/usecases-
 @Controller('users')
 @ApiTags('Users')
 @ApiResponse({ status: 500, description: 'Internal Error' })
-// @ApiExtraModels(UserPresenter)
+@ApiExtraModels(UserModel)
 export class UserController {
   constructor(
     @Inject(UsecasesProxyModule.USER_USECASES_PROXY)
@@ -26,12 +26,14 @@ export class UserController {
   }
 
   @Post('/')
-  async insertUser(@Body() user: UserModel) {
+  @ApiResponseType(User, false)
+  async insertUser(@Body() user: User) {
     const data = await this.userUseCaseProxy.getInstance().insert(user);
     return data;
   }
 
   @Put('/')
+  @ApiResponseType(User, false)
   async updateUser(@Body() user: User) {
     const data = await this.userUseCaseProxy.getInstance().update(user);
     return data;

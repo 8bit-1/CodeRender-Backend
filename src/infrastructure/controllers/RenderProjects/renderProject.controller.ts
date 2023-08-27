@@ -46,4 +46,11 @@ export class RenderProjectController {
     const data = await this.renderProjectUseCaseProxy.getInstance().GetUserProjects(idUser);
     return data;
   }
+
+  @Get('/getById/:idProject')
+  @ApiResponseType(RenderProject, false)
+  async getUserProjectById(@Param('idProject') idProject: string) {
+    const data = await this.renderProjectUseCaseProxy.getInstance().GetProjectById(idProject);
+    return data;
+  }
 }

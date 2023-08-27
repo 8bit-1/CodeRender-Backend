@@ -37,4 +37,8 @@ export class RenderProjectUseCases {
   async GetUserProjects(idUser: any): Promise<RenderProjectModel[]> {
     return this.repository.GetUserProjects(idUser);
   }
+
+  async GetProjectById(idProject: any): Promise<RenderProjectModel> {
+    return this.repository.GetProjectById(idProject);
+  }
 }
