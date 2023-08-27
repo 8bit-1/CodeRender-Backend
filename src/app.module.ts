@@ -28,8 +28,8 @@ import { PreAuthMiddleware } from './infrastructure/common/middleware/pre-auth.m
   ],
   providers: [FirebaseApp],
 })
-export class AppModule implements NestModule {
-  configure(consumer: MiddlewareConsumer): any {
-    consumer.apply(PreAuthMiddleware).exclude({ path: 'users', method: RequestMethod.GET }).forRoutes('*');
-  }
+export class AppModule {
+  // configure(consumer: MiddlewareConsumer): any {
+  //   consumer.apply(PreAuthMiddleware).exclude({ path: 'users', method: RequestMethod.GET }).forRoutes('*');
+  // }
 }

@@ -3,6 +3,7 @@ import { ApiExtraModels, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UserUseCases } from 'src/application/users/user.usecase';
 import { UserModel } from 'src/domain/model/user';
 import { ApiResponseType } from 'src/infrastructure/common/swagger/response.decorator';
+import { CreateUserDto } from 'src/infrastructure/dto/createUser.dto';
 import { User } from 'src/infrastructure/entities/user.entity';
 import { UseCaseProxy } from 'src/infrastructure/usecases-proxy/usecases-proxy';
 import { UsecasesProxyModule } from 'src/infrastructure/usecases-proxy/usecases-proxy.module';
@@ -25,11 +26,8 @@ export class UserController {
   }
 
   @Post('/')
-  async insertUser(@Body() user: User) {
-    console.log(user);
+  async insertUser(@Body() user: UserModel) {
     const data = await this.userUseCaseProxy.getInstance().insert(user);
-
-    // const data = new UserModel();
     return data;
   }
 
@@ -45,10 +43,18 @@ export class UserController {
     return data;
   }
 
-  @Get('/:id')
+  @Get('objectId/:id')
   @ApiResponseType(User, false)
   async findUser(@Param('id') id: string) {
     const data = await this.userUseCaseProxy.getInstance().find(id);
+    return data;
+    // return new UserPresenter(data);
+  }
+
+  @Get('/:id')
+  @ApiResponseType(User, false)
+  async findByUserId(@Param('id') id: string) {
+    const data = await this.userUseCaseProxy.getInstance().findByUserId(id);
     return data;
     // return new UserPresenter(data);
   }

@@ -21,7 +21,9 @@ export class PreAuthMiddleware implements NestMiddleware {
             email: decodedToken.email,
             roles: decodedToken.roles || [],
             type: decodedToken.type,
+            id: decodedToken.uid,
           };
+          // console.log(req['user']);
           next();
         })
         .catch(() => {

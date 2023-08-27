@@ -6,6 +6,9 @@ export class User {
   _id: mongoose.Types.ObjectId;
 
   @Prop()
+  UserId: string;
+
+  @Prop()
   Email: string;
 
   @Prop()
@@ -13,4 +16,10 @@ export class User {
 
   @Prop()
   LastName: string;
+
+  @Prop()
+  Projects: mongoose.Types.ObjectId[];
+
+  // @Prop()
+  // LastName: string;
 }

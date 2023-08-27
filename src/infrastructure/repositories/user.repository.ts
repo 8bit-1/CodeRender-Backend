@@ -4,6 +4,7 @@ import { DataWrapper } from '../utils/utils';
 import { IUserRepository } from 'src/domain/repositories/user.interface';
 import { UserModel } from 'src/domain/model/user';
 import { User } from '../entities/user.entity';
+import { BadRequestException } from '@nestjs/common';
 
 export class UserRepository implements IUserRepository {
   constructor(@InjectModel('user') private readonly userSchema: Model<User>) {}
@@ -15,9 +16,7 @@ export class UserRepository implements IUserRepository {
 
   async Insert(user: UserModel): Promise<UserModel> {
     user._id = new mongoose.Types.ObjectId();
-    console.log(user);
     const userCreated = await this.userSchema.create({ ...user });
-    console.log('userCreated', userCreated);
     return userCreated.save();
   }
 
@@ -43,6 +42,15 @@ export class UserRepository implements IUserRepository {
     } else {
       result.ErrorMessage = `Invalid id ${id}`;
     }
+    return result;
+  }
+
+  async FindByUserId(userId: string): Promise<DataWrapper<UserModel>> {
+    let result = new DataWrapper<UserModel>();
+    if (!userId) throw new BadRequestException();
+
+    result.Data = await this.userSchema.findOne({ UserId: userId }).exec();
+    if (!result.Data) result.ErrorMessage = `User with id ${userId} not found.`;
     return result;
   }
 }

@@ -7,6 +7,8 @@ import { LoggerModule } from '../logger/logger.module';
 import { ExceptionsModule } from '../exceptions/exceptions.module';
 import { UserRepository } from '../repositories/user.repository';
 import { UserUseCases } from 'src/application/users/user.usecase';
+import { RenderProjectRepository } from '../repositories/RenderProject.repository';
+import { RenderProjectUseCases } from 'src/application/renderProjects/renderProject.usecase';
 
 @Module({
   imports: [LoggerModule, RepositoriesModule, ExceptionsModule],
@@ -14,6 +16,7 @@ import { UserUseCases } from 'src/application/users/user.usecase';
 export class UsecasesProxyModule {
   static GET_TODOS_USECASES_PROXY = 'getTodosUsecasesProxy';
   static USER_USECASES_PROXY = 'userUsecasesProxy';
+  static RENDER_PROJECT_USECASES_PROXY = 'renderProjectUsecasesProxy';
 
   static register(): DynamicModule {
     return {
@@ -29,8 +32,18 @@ export class UsecasesProxyModule {
           provide: UsecasesProxyModule.USER_USECASES_PROXY,
           useFactory: (userRepository: UserRepository) => new UseCaseProxy(new UserUseCases(userRepository)),
         },
+        {
+          inject: [RenderProjectRepository],
+          provide: UsecasesProxyModule.RENDER_PROJECT_USECASES_PROXY,
+          useFactory: (renderProjectRepository: RenderProjectRepository) =>
+            new UseCaseProxy(new RenderProjectUseCases(renderProjectRepository)),
+        },
       ],
-      exports: [UsecasesProxyModule.USER_USECASES_PROXY, UsecasesProxyModule.GET_TODOS_USECASES_PROXY],
+      exports: [
+        UsecasesProxyModule.USER_USECASES_PROXY,
+        UsecasesProxyModule.GET_TODOS_USECASES_PROXY,
+        UsecasesProxyModule.RENDER_PROJECT_USECASES_PROXY,
+      ],
     };
   }
 }
